@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dbeafe, #ede9fe, #fce7f3);
+            padding: 35px;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            font-size: 35px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .add-btn {
+            display: block;
+            width: fit-content;
+            margin: 0 auto 40px;
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-4px);
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .card {
+            width: 270px;
+            min-height: 490px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 18px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(79,70,229,0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 18px;
+            border: 3px solid #c7d2fe;
+        }
+
+        .card h2 {
+            color: #312e81;
+            font-size: 21px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .card p {
+            width: 100%;
+            color: #475569;
+            font-size: 14px;
+            margin: 5px 0;
+            padding: 8px;
+            background: #f8fafc;
+            border-radius: 7px;
+            border-left: 4px solid #818cf8;
+        }
+
+        .card a {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 11px;
+            margin-top: 10px;
+            border-radius: 9px;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .view {
+            background: #16a34a;
+        }
+
+        .update {
+            background: #2563eb;
+        }
+
+        .card a:hover {
+            opacity: 0.85;
+            transform: scale(1.03);
+        }
+
+        .card form {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .card button {
+            width: 100%;
+            padding: 11px;
+            border: none;
+            border-radius: 9px;
+            background: #ef4444;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .card button:hover {
+            background: #b91c1c;
+        }
+
+        .empty {
+            text-align: center;
+            color: #64748b;
+            font-size: 20px;
+            width: 100%;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Student Management System</h1>
+
+    <a href="/students/add" class="add-btn">+ Add Students</a>
+
+    <div class="container">
+
+        {% if stds %}
+
+            {% for std in stds %}
+
+                <div class="card">
+
+                    <img src="{{ std[5] }}" alt="Student Image">
+
+                    <h2>{{ std[1] }}</h2>
+
+                    <p>Student ID: {{ std[0] }}</p>
+
+                    <p>Age: {{ std[2] }}</p>
+
+                    <p>Course: {{ std[3] }}</p>
+
+                    <p>Marks: {{ std[4] }}</p>
+
+                    <p>Gender: {{ std[6] }}</p>
+
+                    
+
+                    <a href="/students/{{ std[0] }}"
+                       class="view">View Details</a>
+
+                    <a href="/students/update/{{ std[0] }}"
+                       class="update">Update Student</a>
+
+                    <form action="/students/delete/{{ std[0] }}"
+                          method="POST">
+                          <button> Student delete</button>
+                    </form>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="empty"> Add Students</p>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
