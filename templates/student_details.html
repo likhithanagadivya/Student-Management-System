@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-< lang="en">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,10 @@
 
     <title>Student Details</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -16,43 +19,94 @@
         }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #dbeafe, #ede9fe, #fce7f3);
-            background-size: 300% 300%;
-            animation: backgroundMove 10s ease infinite;
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
             min-height: 100vh;
-            padding: 35px 15px;
+            padding: 40px 15px;
+
+            background: linear-gradient(
+                -45deg,
+                #0f172a,
+                #312e81,
+                #581c87,
+                #1e3a8a
+            );
+
+            background-size: 400% 400%;
+            animation: gradientMove 12s ease infinite;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        @keyframes backgroundMove {
-            0% {
-                background-position: 0% 50%;
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Background Decorations */
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(4px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::before {
+            width: 300px;
+            height: 300px;
+            background: rgba(168, 85, 247, 0.2);
+            top: -100px;
+            left: -100px;
+            animation: float 7s ease-in-out infinite;
+        }
+
+        body::after {
+            width: 350px;
+            height: 350px;
+            background: rgba(6, 182, 212, 0.18);
+            bottom: -120px;
+            right: -100px;
+            animation: float 9s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
             }
 
             50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
+                transform: translateY(-30px) scale(1.1);
             }
         }
 
+        /* Main Heading */
+
         h1 {
+            position: relative;
+            z-index: 1;
             text-align: center;
-            color: #1e3a8a;
-            font-size: 36px;
+            color: #ffffff;
+            font-size: 38px;
+            font-weight: 800;
             margin-bottom: 35px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 2px 3px 5px rgba(30, 58, 138, 0.15);
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
             animation: slideDown 0.8s ease;
         }
 
         @keyframes slideDown {
             from {
                 opacity: 0;
-                transform: translateY(-25px);
+                transform: translateY(-35px);
             }
 
             to {
@@ -61,24 +115,52 @@
             }
         }
 
+        /* Student Card */
+
         .card {
+            position: relative;
+            z-index: 1;
+
             width: 100%;
-            max-width: 480px;
+            max-width: 510px;
+
             margin: auto;
-            background: rgba(255, 255, 255, 0.92);
-            padding: 30px;
-            border-radius: 22px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 12px 35px rgba(79, 70, 229, 0.18);
+            padding: 35px;
+
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 28px;
+
             text-align: center;
+
+            box-shadow: 0 25px 65px rgba(0, 0, 0, 0.3);
+
+            animation: cardAppear 0.9s ease;
             transition: all 0.4s ease;
-            animation: cardAppear 0.8s ease;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+
+            border-radius: 28px 28px 0 0;
+
+            background: linear-gradient(
+                90deg,
+                #06b6d4,
+                #6366f1,
+                #d946ef
+            );
         }
 
         @keyframes cardAppear {
             from {
                 opacity: 0;
-                transform: translateY(35px) scale(0.95);
+                transform: translateY(45px) scale(0.94);
             }
 
             to {
@@ -89,35 +171,55 @@
 
         .card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 45px rgba(79, 70, 229, 0.25);
+            box-shadow: 0 30px 75px rgba(0, 0, 0, 0.4);
         }
+
+        /* Student Profile Image */
 
         .card img {
             width: 190px;
             height: 190px;
+
             object-fit: cover;
             border-radius: 50%;
-            border: 6px solid #c7d2fe;
-            padding: 4px;
+
+            border: 7px solid #818cf8;
+            padding: 5px;
+
             background: white;
-            margin-bottom: 22px;
-            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.18);
-            transition: all 0.4s ease;
+
+            margin: 10px 0 22px;
+
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+
+            transition: all 0.5s ease;
         }
 
         .card img:hover {
-            transform: scale(1.08) rotate(3deg);
-            border-color: #7c3aed;
+            transform: scale(1.1) rotate(5deg);
+            border-color: #c026d3;
+            box-shadow: 0 15px 35px rgba(192, 38, 211, 0.3);
         }
+
+        /* Student ID and Name */
 
         .card h2 {
             color: #312e81;
-            font-size: 20px;
+            font-size: 17px;
+            font-weight: 700;
+
             margin: 12px 0;
-            padding: 12px;
-            background: linear-gradient(135deg, #eef2ff, #f5f3ff);
-            border-radius: 10px;
-            border-left: 4px solid #6366f1;
+            padding: 14px;
+
+            background: linear-gradient(
+                135deg,
+                #eef2ff,
+                #f5f3ff
+            );
+
+            border-radius: 12px;
+            border-left: 5px solid #6366f1;
+
             transition: all 0.3s ease;
         }
 
@@ -126,103 +228,191 @@
             transform: translateX(5px);
         }
 
+        /* Student Information */
+
         .card p {
-            color: #475569;
-            font-size: 15px;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 600;
+
             margin: 12px 0;
-            padding: 13px;
+            padding: 15px;
+
             background: #f8fafc;
-            border-radius: 9px;
-            border-left: 4px solid #818cf8;
+
+            border-radius: 12px;
+            border-left: 5px solid #818cf8;
+
             text-align: left;
+
             transition: all 0.3s ease;
         }
 
         .card p:hover {
             background: #eef2ff;
-            transform: translateX(5px);
+            transform: translateX(6px);
+            border-left-color: #7c3aed;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.1);
         }
+
+        /* Attendance Heading */
 
         .card h3 {
             color: #312e81;
             font-size: 18px;
-            margin-top: 22px;
-            margin-bottom: 10px;
+            font-weight: 800;
+
+            margin-top: 25px;
+            margin-bottom: 12px;
+
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
+
+        /* Present Status */
 
         .present {
-            background: linear-gradient(135deg, #dcfce7, #bbf7d0) !important;
+            background: linear-gradient(
+                135deg,
+                #dcfce7,
+                #bbf7d0
+            ) !important;
+
             color: #15803d !important;
-            font-weight: bold;
-            border-left: 5px solid #16a34a !important;
-            text-align: center !important;
+
+            border-left: 6px solid #16a34a !important;
+
             font-size: 17px !important;
+            font-weight: 800 !important;
+
+            text-align: center !important;
+
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(22, 163, 74, 0.12);
         }
 
+        /* Absent Status */
+
         .absent {
-            background: linear-gradient(135deg, #fee2e2, #fecaca) !important;
+            background: linear-gradient(
+                135deg,
+                #fee2e2,
+                #fecaca
+            ) !important;
+
             color: #dc2626 !important;
-            font-weight: bold;
-            border-left: 5px solid #dc2626 !important;
-            text-align: center !important;
+
+            border-left: 6px solid #dc2626 !important;
+
             font-size: 17px !important;
+            font-weight: 800 !important;
+
+            text-align: center !important;
+
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.12);
         }
+
+        /* Attendance Hover */
+
+        .present:hover {
+            background: #bbf7d0 !important;
+            transform: scale(1.03);
+        }
+
+        .absent:hover {
+            background: #fecaca !important;
+            transform: scale(1.03);
+        }
+
+        /* Back Button */
 
         .card a {
             display: block;
             width: 100%;
-            padding: 14px;
+
+            padding: 15px;
             margin-top: 25px;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
+
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #6366f1,
+                #9333ea
+            );
+
+            background-size: 200% 200%;
+
             color: white;
             text-decoration: none;
-            border-radius: 10px;
-            font-weight: bold;
+
+            border-radius: 12px;
+
             font-size: 15px;
+            font-weight: 700;
             letter-spacing: 0.5px;
-            box-shadow: 0 6px 15px rgba(79, 70, 229, 0.25);
+
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+
             transition: all 0.4s ease;
         }
 
         .card a:hover {
-            background: linear-gradient(135deg, #7c3aed, #2563eb);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 22px rgba(79, 70, 229, 0.35);
+            background-position: right center;
+            transform: translateY(-5px);
+
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.4);
         }
 
         .card a:active {
             transform: scale(0.97);
         }
 
+        /* Mobile Responsive */
+
         @media (max-width: 500px) {
+
             body {
-                padding: 20px 12px;
+                padding: 25px 12px;
             }
 
             h1 {
-                font-size: 25px;
+                font-size: 26px;
+                margin-bottom: 25px;
             }
 
             .card {
-                padding: 22px 18px;
+                padding: 28px 20px;
+                border-radius: 22px;
             }
 
             .card img {
-                width: 160px;
-                height: 160px;
+                width: 155px;
+                height: 155px;
             }
 
             .card h2 {
-                font-size: 17px;
+                font-size: 15px;
             }
 
             .card p {
-                font-size: 14px;
+                font-size: 13px;
             }
         }
+
+        /* Accessibility */
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
     </style>
+
 </head>
 
 <body>
@@ -245,15 +435,15 @@
 
         <p>Gender: {{ std[6] }}</p>
 
-        <h3>Attendance:</h3>
+        <h3>Attendance Status</h3>
 
         {% if std[7] == 1 %}
 
-            <p class="present">Present</p>
+            <p class="present">✓ Present</p>
 
         {% else %}
 
-            <p class="absent">Absent</p>
+            <p class="absent">✕ Absent</p>
 
         {% endif %}
 
@@ -262,4 +452,5 @@
     </div>
 
 </body>
+
 </html>
